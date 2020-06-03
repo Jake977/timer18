@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/timer18/static/css/main.c2e3196e.chunk.css",
+    "main.js": "/timer18/static/js/main.8fe17adf.chunk.js",
+    "main.js.map": "/timer18/static/js/main.8fe17adf.chunk.js.map",
+    "runtime-main.js": "/timer18/static/js/runtime-main.86425ae5.js",
+    "runtime-main.js.map": "/timer18/static/js/runtime-main.86425ae5.js.map",
+    "static/css/2.64e7e229.chunk.css": "/timer18/static/css/2.64e7e229.chunk.css",
+    "static/js/2.e77c275e.chunk.js": "/timer18/static/js/2.e77c275e.chunk.js",
+    "static/js/2.e77c275e.chunk.js.map": "/timer18/static/js/2.e77c275e.chunk.js.map",
+    "index.html": "/timer18/index.html",
+    "precache-manifest.cae966e2148a76356a3249e04782d06e.js": "/timer18/precache-manifest.cae966e2148a76356a3249e04782d06e.js",
+    "service-worker.js": "/timer18/service-worker.js",
+    "static/css/2.64e7e229.chunk.css.map": "/timer18/static/css/2.64e7e229.chunk.css.map",
+    "static/css/main.c2e3196e.chunk.css.map": "/timer18/static/css/main.c2e3196e.chunk.css.map",
+    "static/js/2.e77c275e.chunk.js.LICENSE.txt": "/timer18/static/js/2.e77c275e.chunk.js.LICENSE.txt",
+    "static/media/alarm.mp3": "/timer18/static/media/alarm.b3631705.mp3"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.86425ae5.js",
+    "static/css/2.64e7e229.chunk.css",
+    "static/js/2.e77c275e.chunk.js",
+    "static/css/main.c2e3196e.chunk.css",
+    "static/js/main.8fe17adf.chunk.js"
+  ]
+}
