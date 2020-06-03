@@ -1,0 +1,13 @@
+.timer {
+  padding: 10px;
+  text-align: center;
+
+  &__btn {
+    width: 100px;
+  }
+
+  &__value {
+    font-size: 50px;
+    text-align: center;
+  }
+}

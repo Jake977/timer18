@@ -1,0 +1,29 @@
+.countdown {
+  padding: 10px;
+
+  &__btn {
+    width: 120px;
+  }
+
+  &__timeview {
+    font-size: 50px;
+    text-align: center;
+  }
+
+  &__slider {
+    padding: 20px 10px 0;
+  }
+
+  &__btnBlock {
+    padding-top: 20px;
+    text-align: center;
+  }
+
+  &__progressBar {
+    padding-top: 30px;
+  }
+
+  &__inputsBlock{
+    text-align: center;
+  }
+}
