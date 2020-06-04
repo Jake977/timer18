@@ -57,10 +57,5 @@
     "src/**/*.scss": [
       "stylelint --syntax scss --fix"
     ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   }
 }
