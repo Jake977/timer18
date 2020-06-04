@@ -54,6 +54,9 @@
     "stylelint-config-standard": "^20.0.0"
   },
   "lint-staged": {
+    "src/**/*.{js,jsx}": [
+      "eslint . --fix"
+    ],
     "src/**/*.scss": [
       "stylelint --syntax scss --fix"
     ]
