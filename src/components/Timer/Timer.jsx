@@ -35,11 +35,7 @@ class Timer extends React.Component {
   };
 
   onStartClick = () => {
-    this.setState(({ isPlay }) => {
-      return {
-        isPlay: !isPlay,
-      };
-    });
+    this.setState(({ isPlay }) => ({ isPlay: !isPlay }));
     this.timerControl(10);
   };
 

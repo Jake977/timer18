@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import * as ReactDOM from 'react-dom';
 import './App.scss';
 import { Tabs } from 'antd';
 import Timer from '../Timer/Timer';

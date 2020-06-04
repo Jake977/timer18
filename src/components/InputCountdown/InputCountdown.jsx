@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import * as PropTypes from 'prop-types';
 import { Slider, InputNumber, Space } from 'antd';
 
 class InputCountdown extends React.Component {
