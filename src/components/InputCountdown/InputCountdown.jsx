@@ -5,60 +5,61 @@ import { Slider, InputNumber, Space } from 'antd';
 class InputCountdown extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      timeInSec: 0,
-    };
+    const { maxTimeInMin, maxSeconds, sliderStep } = this.props;
+    this.maxTimeInMin = maxTimeInMin;
+    this.maxSeconds = maxSeconds;
+    this.sliderStep = sliderStep;
   }
 
   setTimeValue = (timeInSec) => {
-    const { onChange } = this.props;
-    if (onChange) onChange(timeInSec);
+    const { updateTime } = this.props;
+    if (updateTime) updateTime(timeInSec);
   };
 
-  onChangeMinField = (value) => {
-    const min = value || 0;
-    const { maxTimeInMin } = this.props;
-
-    this.setState(({ timeInSec }) => {
-      const currentMin = Math.trunc(timeInSec / 60);
-      const currentSec = timeInSec - currentMin * 60;
-      let newTimeInSec = min * 60 + currentSec;
-
-      if (min >= maxTimeInMin) {
-        newTimeInSec = maxTimeInMin * 60;
-      }
-
-      this.setTimeValue(newTimeInSec);
-      return {
-        timeInSec: newTimeInSec,
-      };
-    });
+  onChangeMinField = (minutes) => {
+    const min = minutes || 0;
+    const { maxTimeInMin, timeInSec } = this.props;
+    const currentMin = Math.trunc(timeInSec / 60);
+    const currentSec = timeInSec - currentMin * 60;
+    let newTimeInSec = min * 60 + currentSec;
+    if (min >= maxTimeInMin) {
+      newTimeInSec = maxTimeInMin * 60;
+    }
+    this.setTimeValue(newTimeInSec);
   };
 
-  onChangeSecField = (value) => {
-    const sec = value || 0;
-    this.setState(({ timeInSec }) => {
-      const currentMin = Math.trunc(timeInSec / 60);
-      const newTimeInSec = currentMin * 60 + sec;
-      this.setTimeValue(newTimeInSec);
-      return {
-        timeInSec: newTimeInSec,
-      };
-    });
+  onChangeSecField = (seconds) => {
+    const { maxTimeInMin, timeInSec } = this.props;
+    const sec = seconds || 0;
+    const currentMin = Math.trunc(timeInSec / 60);
+    let newTimeInSec = currentMin * 60 + sec;
+
+    if (currentMin >= maxTimeInMin) {
+      newTimeInSec = maxTimeInMin * 60;
+    }
+    this.setTimeValue(newTimeInSec);
   };
 
-  onSliderChange = (timeInSec) => {
-    this.setState({ timeInSec });
-    this.setTimeValue(timeInSec);
+  onSliderChange = (timeInSec) => this.setTimeValue(timeInSec);
+
+  timeView = (time) => ((time < 10) ? `0${time}` : time);
+
+  sliderFormatTip = (timeInSec) => {
+    const minutes = Math.trunc(timeInSec / 60);
+    const seconds = timeInSec - minutes * 60;
+    return `${this.timeView(minutes)}:${this.timeView(seconds)}`;
   };
 
   render() {
-    // eslint-disable-next-line react/prop-types
-    const { maxSliderInSec, state } = this.props;
-    // eslint-disable-next-line react/prop-types
-    const { timeInSec, startTimeInSec, isStarted } = state;
+    const {
+      maxSliderInSec,
+      timeInSec,
+      startTimeInSec,
+      isStarted,
+    } = this.props;
+
     const time = (isStarted) ? startTimeInSec : timeInSec;
-    const minutes = Math.trunc(time / 60);
+    const minutes = (startTimeInSec > 0) ? Math.trunc(time / 60) : 0;
     const seconds = time - minutes * 60;
 
     return (
@@ -69,7 +70,7 @@ class InputCountdown extends React.Component {
             name="minField"
             defaultValue={0}
             type="number"
-            max={720}
+            max={this.maxTimeInMin}
             min={0}
             value={minutes}
             onChange={this.onChangeMinField}
@@ -80,7 +81,7 @@ class InputCountdown extends React.Component {
             name="secField"
             defaultValue={0}
             type="number"
-            max={59}
+            max={this.maxSeconds}
             min={0}
             value={seconds}
             onChange={this.onChangeSecField}
@@ -89,9 +90,10 @@ class InputCountdown extends React.Component {
         </Space>
         <div className="countdown__slider">
           <Slider
+            tipFormatter={this.sliderFormatTip}
             defaultValue={0}
             max={maxSliderInSec}
-            step={15}
+            step={this.sliderStep}
             onChange={this.onSliderChange}
             value={typeof timeInSec === 'number' ? timeInSec : 0}
             disabled={isStarted}
@@ -104,6 +106,8 @@ class InputCountdown extends React.Component {
 
 InputCountdown.defaultProps = {
   maxTimeInMin: 720,
+  maxSeconds: 59,
+  sliderStep: 15,
   maxSliderInSec: 3600,
   timeInSec: 0,
   startTimeInSec: 0,
@@ -111,8 +115,10 @@ InputCountdown.defaultProps = {
 };
 
 InputCountdown.propTypes = {
-  onChange: PropTypes.func.isRequired,
+  updateTime: PropTypes.func.isRequired,
   maxTimeInMin: PropTypes.number,
+  maxSeconds: PropTypes.number,
+  sliderStep: PropTypes.number,
   maxSliderInSec: PropTypes.number,
   timeInSec: PropTypes.number,
   startTimeInSec: PropTypes.number,

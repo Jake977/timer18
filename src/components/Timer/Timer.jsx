@@ -29,14 +29,15 @@ class Timer extends React.Component {
     }
   };
 
-  resetTimer = () => {
+  onResetClick = () => {
     clearInterval(this.timerId);
     this.setState({ isPlay: false, timeInMs: 0, startFromMs: 0 });
   };
 
   onStartClick = () => {
+    const delay = 10;
     this.setState(({ isPlay }) => ({ isPlay: !isPlay }));
-    this.timerControl(10);
+    this.timerControl(delay);
   };
 
   timeView = (time, digits) => {
@@ -44,7 +45,7 @@ class Timer extends React.Component {
     return result.toString().slice(-digits);
   };
 
-  timeCount = (timeInSec) => {
+  calculateTime = (timeInSec) => {
     const ms = Math.floor(timeInSec / 10);
     let time = timeInSec;
     time = (time - (time % 1000)) / 1000;
@@ -60,12 +61,12 @@ class Timer extends React.Component {
     return (
       <div>
         <div className="timer__value">
-          { this.timeCount(timeInMs) }
+          { this.calculateTime(timeInMs) }
         </div>
         <div className="timer">
           <Space>
             <Button type="primary" className="timer__btn" onClick={this.onStartClick}>{btnText}</Button>
-            <Button type="primary" className="timer__btn" danger onClick={this.resetTimer}>Reset</Button>
+            <Button type="primary" className="timer__btn" danger onClick={this.onResetClick}>Reset</Button>
           </Space>
         </div>
       </div>

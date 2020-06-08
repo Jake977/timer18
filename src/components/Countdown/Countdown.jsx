@@ -37,7 +37,7 @@ class Countdown extends React.Component {
     }
   };
 
-  start = () => {
+  onStartClick = () => {
     const { isPlay } = this.state;
     if (!isPlay) {
       this.countdownId = setInterval(this.countdown, 1000);
@@ -48,9 +48,14 @@ class Countdown extends React.Component {
     }
   };
 
-  reset = () => {
+  onResetClick = () => {
     clearInterval(this.countdownId);
-    this.setState({ isPlay: false, timeInSec: 0, isStarted: false });
+    this.setState({
+      isPlay: false,
+      timeInSec: 0,
+      isStarted: false,
+      startTimeInSec: 0,
+    });
   };
 
   onChangeTime = (timeInSec) => {
@@ -60,7 +65,7 @@ class Countdown extends React.Component {
     });
   };
 
-  progressBar = (timeInSec, startTimeInSec) => {
+  getProgress = (timeInSec, startTimeInSec) => {
     const onePercent = (startTimeInSec / 100);
     return Math.trunc(100 - (timeInSec / onePercent));
   };
@@ -76,7 +81,7 @@ class Countdown extends React.Component {
     } = this.state;
     const minutes = Math.trunc(timeInSec / 60);
     const seconds = timeInSec - minutes * 60;
-    const progress = (isStarted) ? this.progressBar(timeInSec, startTimeInSec) : 0;
+    const progress = (isStarted) ? this.getProgress(timeInSec, startTimeInSec) : 0;
     const btnText = isPlay ? 'Pause' : 'Play';
     return (
       <div>
@@ -96,7 +101,15 @@ class Countdown extends React.Component {
         <Row gutter={[10, 10]}>
           <Col span={24}>
             <div className="countdown__inputsBlock">
-              <InputCountdown onChange={this.onChangeTime} state={this.state} />
+              <InputCountdown
+                updateTime={this.onChangeTime}
+                timeInSec={timeInSec}
+                isStarted={isStarted}
+                startTimeInSec={startTimeInSec}
+                maxTimeInMin={720}
+                maxSeconds={59}
+                sliderStep={15}
+              />
             </div>
           </Col>
         </Row>
@@ -107,7 +120,7 @@ class Countdown extends React.Component {
                 <Button
                   type="primary"
                   className="countdown__btn"
-                  onClick={this.start}
+                  onClick={this.onStartClick}
                   disabled={!timeInSec}
                 >
                   {btnText}
@@ -115,7 +128,7 @@ class Countdown extends React.Component {
                 <Button
                   type="primary"
                   className="countdown__btn"
-                  onClick={this.reset}
+                  onClick={this.onResetClick}
                   disabled={!timeInSec}
                   danger
                 >
